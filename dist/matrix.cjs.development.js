@@ -873,20 +873,23 @@ var Matrix = /*#__PURE__*/function (_Adapter) {
     });
     (_this$client6 = this.client) == null ? void 0 : _this$client6.on(sdk.RoomEvent.Timeline, function (event, room, toStartOfTimeline) {
       if (event.getType() === "m.room.message" && toStartOfTimeline === false) {
-        var _this11$client4, _room$getCanonicalAli;
+        var _this11$client4, _this11$client5, _room$getCanonicalAli;
 
         (_this11$client4 = _this11.client) == null ? void 0 : _this11$client4.setPresence({
           presence: "online"
         });
         var id = event.getId();
         var message = event.getContent();
-        var name = event.getSender();
+        var senderId = event.getSender();
+        var senderUser = (_this11$client5 = _this11.client) == null ? void 0 : _this11$client5.getUser(senderId);
 
-        var user = _this11.robot.brain.userForId(name);
+        var user = _this11.robot.brain.userForId(senderId, {
+          name: senderUser == null ? void 0 : senderUser.displayName
+        });
 
         user.room = (_room$getCanonicalAli = room.getCanonicalAlias()) != null ? _room$getCanonicalAli : room.roomId;
 
-        if (name !== _this11.user_id) {
+        if (senderId !== _this11.user_id) {
           _this11.robot.logger.info("Received message: " + JSON.stringify(message) + " in room: " + user.room + ", from: " + user.name + " (" + user.id + ").");
 
           if (message.msgtype === "m.text") {
@@ -900,16 +903,16 @@ var Matrix = /*#__PURE__*/function (_Adapter) {
           }
 
           if (message.msgtype !== "m.text" || message.body.indexOf(_this11.robot.name) !== -1) {
-            var _this11$client5;
+            var _this11$client6;
 
-            return (_this11$client5 = _this11.client) == null ? void 0 : _this11$client5.sendReadReceipt(event);
+            return (_this11$client6 = _this11.client) == null ? void 0 : _this11$client6.sendReadReceipt(event);
           }
         }
       }
     });
     (_this$client7 = this.client) == null ? void 0 : _this$client7.on(sdk.RoomMemberEvent.Membership, /*#__PURE__*/function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(event, member) {
-        var _this11$client6;
+        var _this11$client7;
 
         return _regeneratorRuntime().wrap(function _callee5$(_context5) {
           while (1) {
@@ -921,7 +924,7 @@ var Matrix = /*#__PURE__*/function (_Adapter) {
                 }
 
                 _context5.next = 3;
-                return (_this11$client6 = _this11.client) == null ? void 0 : _this11$client6.joinRoom(member.roomId);
+                return (_this11$client7 = _this11.client) == null ? void 0 : _this11$client7.joinRoom(member.roomId);
 
               case 3:
                 _this11.robot.logger.info("Auto-joined " + member.roomId);
