@@ -9,7 +9,8 @@
     "noImplicitThis": true,
     "strict": true,
 		"allowSyntheticDefaultImports": true,
-    "target": "esnext"
+    "target": "esnext",
+    "rootDir": "./src"
   },
   "typeAcquisition": {
     "enable": true
