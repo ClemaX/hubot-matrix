@@ -311,12 +311,13 @@ export class Matrix extends Adapter {
           toStartOfTimeline === false
         ) {
           this.client?.setPresence({ presence: "online" });
-          let id = event.getId();
-          let message = event.getContent();
-          let name = event.getSender();
-          let user = this.robot.brain.userForId(name);
+          const id = event.getId();
+          const message = event.getContent();
+          const senderId = event.getSender();
+          const senderUser = this.client?.getUser(senderId);
+          let user = this.robot.brain.userForId(senderId, { name: senderUser?.displayName });
           user.room = room.getCanonicalAlias() ?? room.roomId;
-          if (name !== this.user_id) {
+          if (senderId !== this.user_id) {
             this.robot.logger.info(
               `Received message: ${JSON.stringify(message)} in room: ${
                 user.room
