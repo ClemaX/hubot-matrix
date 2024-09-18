@@ -44,7 +44,7 @@ export class Matrix extends Adapter {
   private commonMarkReader = new Parser();
   private commonMarkRenderer = new HtmlRenderer({ safe: true, softbreak: "<br />" });
 
-  constructor(private robot: Robot<Matrix>) {
+  constructor(public robot: Robot<Adapter>) {
     super(robot);
     this.robot.logger.info("Constructor");
   }
