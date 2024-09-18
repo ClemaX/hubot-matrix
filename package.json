@@ -15,7 +15,7 @@
     "request": "^2.79.0"
   },
   "peerDependencies": {
-    "hubot": ">=4.0.0-alpha"
+    "hubot": "^11.3.0"
   },
   "devDependencies": {
     "@types/commonmark": "^0.27.5",
