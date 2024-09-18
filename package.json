@@ -29,6 +29,7 @@
   },
   "typings": "dist/matrix.d.ts",
   "scripts": {
-    "build": "dts build --name Matrix --entry src/matrix.ts --format esm --target node"
+    "build": "dts build --name Matrix --entry src/matrix.ts --format esm --target node",
+	"prepare": "npm run build"
   }
 }
