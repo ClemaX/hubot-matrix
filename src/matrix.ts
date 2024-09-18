@@ -358,3 +358,5 @@ export class Matrix extends Adapter {
 export function use(robot: Robot<any>): Matrix {
   return new Matrix(robot);
 }
+
+export default { Matrix, MatrixMessage, use }
